@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+{% block title %} | Welcome {% endblock %}
+{% block content %}
+<!-- Showcase -->
+  <section id="showcase">
+    <div class="container text-center">
+      <div class="home-search p-5">
+        <div class="overlay p-5">
+          <h1 class="display-4 mb-4">
+            Property Searching Just Got So Easy
+          </h1>
+          <p class="lead">Search our compressive property database!</p>
+          <div class="search">
+            <form action="{% url 'search' %}">
+              <!-- Form Row 1 -->
+              <div class="form-row">
+                <div class="col-md-4 mb-3">
+                  <label class="sr-only">Keywords</label>
+                  <input type="text" name="keywords" class="form-control" placeholder="Keyword (Pool, Garage, etc)">
+                </div>
+
+                <div class="col-md-4 mb-3">
+                  <label class="sr-only">City</label>
+                  <input type="text" name="city" class="form-control" placeholder="City">
+                </div>
+
+                <div class="col-md-4 mb-3">
+                  <label class="sr-only">State</label>
+                  <select name="state" class="form-control">
+                    <option selected="true" disabled="disabled">State</option>
+                    {% for key,value in state_choices.items %}
+                    <option value="{{ key }}">{{ value }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <!-- Form Row 2 -->
+              <div class="form-row">
+                <div class="col-md-6 mb-3">
+                  <label class="sr-only">County</label>
+                  <select name="county" class="form-control">
+                    <option selected="true" disabled="disabled">County</option>
+                     {% for key,value in county_choices.items %}
+                    <option value="{{ key }}">{{ value }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <select name="price" class="form-control" id="type">
+                    <option selected="true" disabled="disabled">Max Price (Any)</option>
+                    {% for key,value in price_choices.items %}
+                    <option value="{{ key }}">{{ value }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <button class="btn btn-secondary btn-block mt-4" type="submit">Submit form</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<br>
+  <!-- Alerts -->
+{% include 'partials/_alerts.html'%}
+
+<!--Why Us -->
+<section id="jumbo" class="section text-center py-1">
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+  <div class="row">
+    <div class="col-2"></div>
+  <div class="col-lg-8">
+    <h1 class="text-center">Commercial Real Estate Group CA</h1></br>
+    <p>Commercial Real Estate Group CA is licensed Real Estate Brokerage firm located in Fresno CA.  We specialize in sales of Multi-Family Investment properties in Fresno and sounding areas.  We work with buyer and sellers of all types of multifamily properties including apartments, multi-family homes, condos, and townhomes.   </p>
+
+    <ul class="list numbers d-flex justify-content-between py-5">
+                <li>
+                  <span data-count="400" data-prefix="$" data-suffix="M" class="count">$400M</span>
+                  In Sales
+                </li>
+                <li>
+                    <span data-count="2000" data-prefix="#" data-suffix="+" class="count">2000+</span>
+                    Transactions Completed
+                  </li>
+                  <li>
+                      <span data-count="35" data-prefix="+" data-suffix="+" class="count">35+</span>
+                      Years of Combined Experience
+                    </li>
+              </ul>
+  </div>
+      <div class="col-2">
+      </div>
+</div>
+</div>
+</section>
+
+
+  <section id="services" class="py-5 bg-secondary text-white">
+    <div class="container">
+      <!--<h2 class="col-md-12 text-white text-center">Our Services</h2></br>-->
+      <div class="row text-center">
+        <div class="col-md-4">
+          <i class="fas fa-store-alt fa-4x mr-4"></i>
+          <hr>
+          <h3>Investment Properties</h3>
+          <p>We can provide you with complete information on all of our listings.  We have property types ranging from Class “A” to Class “C”, from stabilized to value add.  We can also help you with properties that are currently “off market”.</p>
+        </div>
+        <div class="col-md-4">
+          <i class="fas fa-sign fa-4x mr-4"></i>
+          <hr>
+          <h3>Commercial Sales</h3>
+          <p>If you are thinking about selling your property, give us call.  We can provide you with confidential opinion of value of your property to help you decide whether your best course of action is to hold, refinance or sell.</p>
+        </div>
+        <div class="col-md-4">
+          <i class="fas fa-home fa-4x mr-4"></i>
+          <hr>
+          <h3>Propery Management</h3>
+          <p>We don't just stop at the sale.  If you are looking for a committed and qualified property manager, look no further.  From maintenance to tenant satisfaction, we can handle it all.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ <!-- Listings -->
+  <section id="listings" class="py-5">
+    <div class="container">
+      <h3 class="text-center mb-3">Latest Listings</h3>
+      <div class="row">
+       {% if listings %}
+          {% for listing in listings %}
+<div class="col-md-6 col-lg-4 mb-4">
+          <div class="card listing-preview">
+            <img class="card-img-top" src="{{listing.photo_main.url}}" alt="">
+            <div class="card-img-overlay">
+              <h2>
+                <span class="badge badge-secondary text-white">${{listing.price | intcomma}}</span>
+              </h2>
+            </div>
+            <div class="card-body">
+              <div class="listing-heading text-center">
+                <h4 class="text-primary">{{listing.title}}</h4>
+                <p>
+                  <i class="fas fa-map-marker text-secondary"></i> {{listing.city}} {{listing.state}} {{listing.zipcode}}</p>
+              </div>
+              <hr>
+              <div class="row py-2 text-secondary">
+                <div class="col-6">
+                  <i class="fas fa-th-large"></i> Sqft: {{listing.sqft}}</div>
+                <div class="col-6">
+                  <i class="fas fa-square"></i> Lot Size: {{listing.lot_size}}</div>
+              </div>
+              <div class="row py-2 text-secondary">
+                <div class="col-6">
+                  <i class="fas fa-bed"></i> Bedrooms: {{listing.bedrooms}}</div>
+                <div class="col-6">
+                  <i class="fas fa-bath"></i> Bathrooms: {{listing.bathrooms}}</div>
+              </div>
+
+               <div class="row py-2 text-secondary">
+                <div class="col-6">
+                  <i class="fas fa-industry"></i> Year Build: {{listing.yearbuild}}</div>
+                <div class="col-6">
+                  <i class="fas fa-percentage"></i> Cap Rate: {{listing.caprate}} %</div>
+              </div>
+              <hr>
+              <div class="row py-2 text-secondary">
+                <div class="col-6">
+                  <i class="fas fa-user"></i> {{listing.listingAgent}}</div>
+              </div>
+              <div class="row py-2 text-secondary">
+                <div class="col-6">
+                  <i class="fas fa-building"></i> {{listing.listingOffice}}</div>
+              </div>
+              <div class="row text-secondary pb-2">
+                <div class="col-6">
+                  <i class="fas fa-clock"></i> {{listing.list_date | timesince }}</div>
+              </div>
+              <hr>
+              <a href="{% url 'listing' listing.id %}" class="btn btn-primary btn-block">More Info</a>
+            </div>
+          </div>
+        </div>
+
+        {% endfor %}
+
+        {% else %}
+        <div class="col-md-12">No Listings Available</div>
+        {% endif %}
+
+
+
+
+
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

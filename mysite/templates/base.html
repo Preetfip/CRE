@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'css/all.css' %}">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+  <!-- Custom -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+<link rel="stylesheet" href="{% static 'css/lightbox.min.css'%}">
+
+    <meta charset="UTF-8">
+    <title>Commercial Real Estate Group CA {% block title %}{% endblock %}</title>
+</head>
+<body>
+<!--Top Bar -->
+{% include 'partials/_topbar.html' %}
+
+<!--Nav Bar -->
+{% include 'partials/_navbar.html' %}
+
+
+
+
+{% block content %}{% endblock %}
+
+<!--Footer -->
+{% include 'partials/_footer.html' %}
+
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/lightbox.min.js' %}"></script>
+
+<script>
+    $('.count').each(function(){
+    $(this).prop('Counter',0).aminate({
+        Couter: $(this).text()
+        },{
+           duration: 3000,
+           easing: 'swing',
+           step:(function (now){
+           $(this).text(Math.ceil(now));
+          }
+        });
+       });
+</script>
+
+<!--Modal-->
+
+<div class="modal" id="loginModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal Title</h5>
+        <button class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+
+</html>
