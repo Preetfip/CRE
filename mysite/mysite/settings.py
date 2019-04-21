@@ -152,3 +152,7 @@ EMAIL_PORT = '587'
 EMAIL_HOST_USER = 'OregonBusinessSales'
 EMAIL_HOST_PASSWORD = 'abcde@1234'
 
+try:
+    from .local_settings import *
+except ImportError:
+    pass
