@@ -81,6 +81,31 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = '1fdkjfkdajiKJLIkjKJI*&KHJLk4hngv89bthrj*by&#ylsqfe=8aa@$6m'
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
+
+ALLOWED_HOSTS =['138.68.238.221']
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'cre_prob',
+        'USER': 'dbadmin',
+        'PASSWORD': 'cre@database',
+        'HOST': 'localhost'
+    }
+}
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = '587'
+EMAIL_HOST_USER = 'OregonBusinessSales'
+EMAIL_HOST_PASSWORD = 'abcde@1234'
 
 
 
@@ -139,10 +164,10 @@ MESSAGE_TAGS = {
 #Email Config
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST = ''
 EMAIL_PORT = '587'
-EMAIL_HOST_USER = 'OregonBusinessSales'
-EMAIL_HOST_PASSWORD = 'abcde@1234'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
 
 try:
     from .local_settings import *
